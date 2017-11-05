@@ -7,6 +7,5 @@ main()
 	for (n=9;n>-15;n--) {
 		PrintInt(n);
 	}
-        Halt();
 }
 
