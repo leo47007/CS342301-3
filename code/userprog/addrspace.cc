@@ -27,7 +27,7 @@
 //	object file header, in case the file was generated on a little
 //	endian machine, and we're now running on a big endian machine.
 //----------------------------------------------------------------------
-bool AddrSpace::usedPhyPage[NumPhysPages] = {0};
+bool AddrSpace::usedPhyPages[NumPhysPages] = {0};
 
 static void 
 SwapHeader (NoffHeader *noffH)
@@ -92,7 +92,7 @@ AddrSpace::AddrSpace()
 AddrSpace::~AddrSpace()
 {
     for(int i=0; i < numPages; i++){
-        usedPhyPage[pageTable[i].physicalPage]=FALSE;
+        usedPhyPages[pageTable[i].physicalPage]=FALSE;
     }
    delete pageTable;
 }
@@ -158,6 +158,7 @@ AddrSpace::Load(char *fileName)
             break;
         }
     }
+    usedPhyPages[pageNum] = TRUE;
     pageTable[i].physicalPage = pageNum;
     pageTable[i].valid = TRUE;
     pageTable[i].use = FALSE;
