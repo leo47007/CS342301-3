@@ -153,7 +153,7 @@ AddrSpace::Load(char *fileName)
     pageTable[i].virtualPage = i;   
     int pageNum = 0;
     for(int j = 0; j< NumPhysPages; j++){
-        if(!usedPhysPages[j]){
+        if(!usedPhyPages[j]){
             pageNum = j;
             break;
         }
