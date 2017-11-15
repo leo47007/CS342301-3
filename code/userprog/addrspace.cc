@@ -67,6 +67,7 @@ SwapHeader (NoffHeader *noffH)
 
 AddrSpace::AddrSpace()
 {
+    /*
     pageTable = new TranslationEntry[NumPhysPages];
     for (int i = 0; i < NumPhysPages; i++) {
 	pageTable[i].virtualPage = i;	// for now, virt page # = phys page #
@@ -79,6 +80,7 @@ AddrSpace::AddrSpace()
     
     // zero out the entire address space
     bzero(kernel->machine->mainMemory, MemorySize);
+    */
 }
 
 //----------------------------------------------------------------------
@@ -141,6 +143,24 @@ AddrSpace::Load(char *fileName)
 						// virtual memory
 
     DEBUG(dbgAddr, "Initializing address space: " << numPages << ", " << size);
+//leo
+    pageTable = new TranslationEntry[numPages];
+    for (int i = 0; i < NumPhysPages; i++) {
+    pageTable[i].virtualPage = i;   
+    int pageNum = 0;
+    for(int j = 0; j< NumPhysPages; j++){
+        if(!usedPhysPages[j]){
+            pageNum = j;
+            break;
+        }
+    }
+    pageTable[i].physicalPage = pageNum;
+    pageTable[i].valid = TRUE;
+    pageTable[i].use = FALSE;
+    pageTable[i].dirty = FALSE;
+    pageTable[i].readOnly = FALSE;  
+    }
+//leo
 
 // then, copy in the code and data segments into memory
 // Note: this code assumes that virtual address = physical address
