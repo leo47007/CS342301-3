@@ -172,11 +172,18 @@ AddrSpace::Load(char *fileName)
     if (noffH.code.size > 0) {
         DEBUG(dbgAddr, "Initializing code segment.");
 	DEBUG(dbgAddr, noffH.code.virtualAddr << ", " << noffH.code.size);
-        unsigned int paddr;
+        unsigned int vpn    = noffH.code.virtualAddr / PageSize;
+        unsigned int offset = noffH.code.virtualAddr % PageSize;
+        unsigned int ppn = pageTable[vpn].physicalPage;
+        executable->ReadAt(
+        &(kernel->machine->mainMemory[ppn*PageSize+offset]), 
+            noffH.code.size, noffH.code.inFileAddr);
+/*        unsigned int paddr;
         Translate(noffH.code.virtualAddr,&paddr, 0);
         executable->ReadAt(
         &(kernel->machine->mainMemory[paddr]), 
             noffH.code.size, noffH.code.inFileAddr);
+*/
 /*        executable->ReadAt(
 		&(kernel->machine->mainMemory[noffH.code.virtualAddr]), 
 			noffH.code.size, noffH.code.inFileAddr);
@@ -185,11 +192,18 @@ AddrSpace::Load(char *fileName)
     if (noffH.initData.size > 0) {
         DEBUG(dbgAddr, "Initializing data segment.");
 	DEBUG(dbgAddr, noffH.initData.virtualAddr << ", " << noffH.initData.size);
-        unsigned int paddr;
+        unsigned int vpn    = noffH.initData.virtualAddr / PageSize;
+        unsigned int offset = noffH.initData.virtualAddr % PageSize;
+        unsigned int ppn = pageTable[vpn].physicalPage;
+        executable->ReadAt(
+        &(kernel->machine->mainMemory[ppn*PageSize+offset]), 
+            noffH.initData.size, noffH.initData.inFileAddr);
+/*        unsigned int paddr;
         Translate(noffH.initData.virtualAddr,&paddr, 0);
         executable->ReadAt(
         &(kernel->machine->mainMemory[paddr]), 
             noffH.initData.size, noffH.initData.inFileAddr);       
+*/
 /*        executable->ReadAt(
 		&(kernel->machine->mainMemory[noffH.initData.virtualAddr]),
 			noffH.initData.size, noffH.initData.inFileAddr);
@@ -200,11 +214,18 @@ AddrSpace::Load(char *fileName)
     if (noffH.readonlyData.size > 0) {
         DEBUG(dbgAddr, "Initializing read only data segment.");
 	DEBUG(dbgAddr, noffH.readonlyData.virtualAddr << ", " << noffH.readonlyData.size);
-        unsigned int paddr;
+        unsigned int vpn    = noffH.readonlyData.virtualAddr / PageSize;
+        unsigned int offset = noffH.readonlyData.virtualAddr % PageSize;
+        unsigned int ppn = pageTable[vpn].physicalPage;
+        executable->ReadAt(
+        &(kernel->machine->mainMemory[ppn*PageSize+offset]), 
+            noffH.readonlyData.size, noffH.readonlyData.inFileAddr);
+/*        unsigned int paddr;
         Translate(noffH.readonlyData.virtualAddr,&paddr, 0);
         executable->ReadAt(
         &(kernel->machine->mainMemory[paddr]), 
             noffH.readonlyData.size, noffH.readonlyData.inFileAddr);  
+*/
 /*        executable->ReadAt(
 		&(kernel->machine->mainMemory[noffH.readonlyData.virtualAddr]),
 			noffH.readonlyData.size, noffH.readonlyData.inFileAddr);
