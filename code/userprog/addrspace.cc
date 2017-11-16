@@ -149,7 +149,7 @@ AddrSpace::Load(char *fileName)
     DEBUG(dbgAddr, "Initializing address space: " << numPages << ", " << size);
 
     pageTable = new TranslationEntry[numPages];
-    for (int i = 0; i < NumPhysPages; i++) {
+    for (int i = 0; i < numPages; i++) {
     pageTable[i].virtualPage = i;   
     int pageNum = 0;
     for(int j = 0; j< NumPhysPages; j++){
