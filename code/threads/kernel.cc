@@ -81,6 +81,12 @@ Kernel::Kernel(int argc, char **argv)
     }
 }
 
+
+int
+Kernel::getUnusedFrame(){
+    for(int i=0; i<NumPhysPages; i++)
+        if(!usedPhyPages[i])return i;
+}
 //----------------------------------------------------------------------
 // Kernel::Initialize
 // 	Initialize Nachos global data structures.  Separate from the 

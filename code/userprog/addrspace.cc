@@ -19,7 +19,7 @@
 #include "main.h"
 #include "addrspace.h"
 #include "machine.h"
-#include "nof.h"
+#include "noff.h"
 
 //----------------------------------------------------------------------
 // SwapHeader
@@ -151,12 +151,13 @@ AddrSpace::Load(char *fileName)
     for (int i = 0; i < numPages; i++) {
         pageTable[i].virtualPage = i;   
         int pageNum = 0;
-        for(int j = 0; j< NumPhysPages; j++){
+        /*for(int j = 0; j< NumPhysPages; j++){
             if(!kernel->usedPhyPages[j]){
                 pageNum = j;
                 break;
             }
-        }
+        }*/
+        pageNum = kernel->getUnusedFrame();
         kernel->usedPhyPages[pageNum] = TRUE;
         pageTable[i].physicalPage = pageNum;
         pageTable[i].valid = TRUE;
