@@ -67,7 +67,7 @@ class Kernel {
     PostOfficeInput *postOfficeIn;
     PostOfficeOutput *postOfficeOut;
     int getUnusedFrame();
-    static bool usedPhyPages[NumPhysPages];
+    bool usedPhyPages[NumPhysPages];
 
     int hostName;               // machine identifier
 
