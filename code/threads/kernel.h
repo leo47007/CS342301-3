@@ -54,7 +54,7 @@ class Kernel {
 
 // These are public for notational convenience; really, 
 // they're global variables used everywhere.
-
+    static bool usedPhyPages[NumPhysPages];
     Thread *currentThread;	// the thread holding the CPU
     Scheduler *scheduler;	// the ready list
     Interrupt *interrupt;	// interrupt status
