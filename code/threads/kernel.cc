@@ -26,6 +26,7 @@
 
 Kernel::Kernel(int argc, char **argv)
 {
+    usedPhyPages[NumPhysPages] = {0};
     randomSlice = FALSE; 
     debugUserProg = FALSE;
     consoleIn = NULL;          // default is stdin
@@ -94,7 +95,6 @@ Kernel::Initialize()
     // But if it ever tries to give up the CPU, we better have a Thread
     // object to save its state. 
 
-	usedPhyPages[NumPhysPages] = {0};
 
     currentThread = new Thread("main", threadNum++);		
     currentThread->setStatus(RUNNING);

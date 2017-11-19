@@ -108,7 +108,7 @@ AddrSpace::~AddrSpace()
 //----------------------------------------------------------------------
 
 bool 
-AddrSpace:Load(char *fileName) 
+AddrSpace::Load(char *fileName) 
 {
     OpenFile *executable = kernel->fileSystem->Open(fileName);
     NoffHeader noffH;
