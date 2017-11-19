@@ -54,7 +54,6 @@ class Kernel {
 
 // These are public for notational convenience; really, 
 // they're global variables used everywhere.
-
     Thread *currentThread;	// the thread holding the CPU
     Scheduler *scheduler;	// the ready list
     Interrupt *interrupt;	// interrupt status
@@ -67,6 +66,8 @@ class Kernel {
     FileSystem *fileSystem;     
     PostOfficeInput *postOfficeIn;
     PostOfficeOutput *postOfficeOut;
+    int getUnusedFrame();
+    static bool usedPhyPages[NumPhysPages];
 
     int hostName;               // machine identifier
 

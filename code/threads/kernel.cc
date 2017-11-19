@@ -26,6 +26,7 @@
 
 Kernel::Kernel(int argc, char **argv)
 {
+    usedPhyPages[NumPhysPages] = {0};
     randomSlice = FALSE; 
     debugUserProg = FALSE;
     consoleIn = NULL;          // default is stdin
@@ -80,6 +81,12 @@ Kernel::Kernel(int argc, char **argv)
     }
 }
 
+
+int
+Kernel::getUnusedFrame(){
+    for(int i=0; i<NumPhysPages; i++)
+        if(!usedPhyPages[i])return i;
+}
 //----------------------------------------------------------------------
 // Kernel::Initialize
 // 	Initialize Nachos global data structures.  Separate from the 
@@ -94,7 +101,7 @@ Kernel::Initialize()
     // But if it ever tries to give up the CPU, we better have a Thread
     // object to save its state. 
 
-	
+
     currentThread = new Thread("main", threadNum++);		
     currentThread->setStatus(RUNNING);
 
