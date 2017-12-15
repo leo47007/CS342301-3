@@ -28,10 +28,42 @@
 // 	Initialize the list of ready but not running threads.
 //	Initially, no ready threads.
 //----------------------------------------------------------------------
+int SJF_compare(Thread* thread1, Thread* thread2)
+{
+    if(thread1->getBurstTime() == thread2->getBurstTime())
+    {
+        if(thread1->getID() > thread2->getID())
+            return -1;
+        else return 1;
+    }
+    else if(thread1->getBurstTime() < thread2->getBurstTime()) 
+        return -1;
+    else 
+        return 1;
+}
+
+int Priority_compare(Thread* thread1, Thread* thread2)
+{
+    if(thread1->getPriority() == thread2->getPriority())
+    {
+        if(thread1->getID() > thread2->getID())
+            return -1;
+        else return 1;        
+    }
+    else if(thread1->getPriority() < thread2->Priority()) 
+        return -1;
+    else 
+        return 1;
+}
 
 Scheduler::Scheduler()
 { 
     readyList = new List<Thread *>; 
+
+    L1_SJF = new SortedList<Thread *>(SJF_compare);
+    L2_Priority = new SortedList<Thresd *>(Priority_compare);
+    L3_RR = new List<Thread *>;
+
     toBeDestroyed = NULL;
 } 
 
@@ -60,7 +92,24 @@ Scheduler::ReadyToRun (Thread *thread)
     DEBUG(dbgThread, "Putting thread on ready list: " << thread->getName());
 	//cout << "Putting thread on ready list: " << thread->getName() << endl ;
     thread->setStatus(READY);
-    readyList->Append(thread);
+
+    thread->setArrivalTime(kernel->stats->totalTicks);
+    //readyList->Append(thread);  leo comment
+    if(thread->getPriority() >= 100)
+    {
+        L1_SJF->Insert(thread);
+        cout << "Tick [" << kernel->stats->totalTicks << "] : Thread [" << thread->getID() << "] is inserted into queue L1" << endl;
+    }
+    else if(thread->getPriority() >= 50)
+    {
+        L2_Priority->Insert(thread);
+        cout << "Tick [" << kernel->stats->totalTicks << "] : Thread [" << thread->getID() << "] is inserted into queue L2" << endl;
+    }
+    else
+    {
+        L3_RR->Append(thread);
+        cout << "Tick [" << kernel->stats->totalTicks << "] : Thread [" << thread->getID() << "] is inserted into queue L3" << endl;
+    }
 }
 
 //----------------------------------------------------------------------
@@ -76,11 +125,32 @@ Scheduler::FindNextToRun ()
 {
     ASSERT(kernel->interrupt->getLevel() == IntOff);
 
-    if (readyList->IsEmpty()) {
+/*    if (readyList->IsEmpty()) {
 		return NULL;
     } else {
     	return readyList->RemoveFront();
     }
+*/ //leo comment
+    Thread* threadToRun;
+    if(!(L1_SJF->IsEmpty()))
+    {
+        threadToRun = L1_SJF->RemoveFront();
+        cout<<"Tick ["<< kernel->stats->totalTicks << "]: Thread [" << threadToRun->getID() <<"] is removed from queue L1"<<endl;
+    }
+    else if(!(L2_Priority->IsEmpty()))
+    {
+        threadToRun = L2_Priority->RemoveFront();
+        cout<<"Tick ["<< kernel->stats->totalTicks << "]: Thread [" << threadToRun->getID() <<"] is removed from queue L2"<<endl;        
+    }
+    else if(!(L3_RR->IsEmpty()))
+    {
+        threadToRun = L3_RR->RemoveFront();
+        cout<<"Tick ["<< kernel->stats->totalTicks << "]: Thread [" << threadToRun->getID() <<"] is removed from queue L2"<<endl;       
+    }
+    else 
+        return NULL;
+
+    return threadToRun;
 }
 
 //----------------------------------------------------------------------
@@ -176,4 +246,9 @@ Scheduler::Print()
 {
     cout << "Ready list contents:\n";
     readyList->Apply(ThreadPrint);
+}
+
+void
+Scheduler::Aging(List<Thread*>* list)
+{
 }

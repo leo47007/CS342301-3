@@ -107,6 +107,33 @@ class Thread {
     void Print() { cout << name; }
     void SelfTest();		// test whether thread impl is working
 
+    //leo added(
+    void setPriority(int prio){
+        priority = prio;
+    }
+    int getPriority(){
+        return priority;
+    }
+    void setArrivalTime(int ready){
+        readyTime = ready;
+    } //for caculate age 
+    int getArrivalTime(){
+        return readyTime;
+    }
+    void setStartTime(int start){
+        startTime = start;
+    }
+    int getStartTime(){
+        return startTime;
+    }
+    void setBurstTime(double burst){
+        burstTime = burst;
+    }
+    double getBurstTime(){
+        return burstTime;
+    }
+    
+    //)leo added
   private:
     // some of the private data for this class is listed above
     
