@@ -132,17 +132,23 @@ class Thread {
     int getStartExeTime(){
         return startTime;
     }
-    void setLastburstTime(double burst){
+    void setLastburstTime(int burst){
         lastburstTime = burst;
     }
-    double getLastburstTime(){
+    int getLastburstTime(){
         return lastburstTime;
     }
-    void setTmpburstTime(double burst){
+    void setTmpburstTime(int burst){
         tmpburstTime = burst;
     }
-    double getTmpburstTime(){
+    int getTmpburstTime(){
         return tmpburstTime;
+    }
+    void setBurstTime(int burst){
+        burstTime = burst;
+    }
+    int getBurstTime(){
+        return burstTime;
     }
     void Aging()
     {
@@ -177,7 +183,7 @@ class Thread {
     int startTime;
     int lastburstTime;
     int tmpburstTime;
-    double burstTime;
+    int burstTime;
     //)leo added
   public:
     void SaveUserState();		// save user-level register state
