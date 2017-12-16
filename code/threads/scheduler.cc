@@ -102,11 +102,7 @@ Scheduler::ReadyToRun (Thread *thread)
         if(thread->getBurstTime() < kernel->currentThread->getBurstTime())
         {
             kernel->currentThread->Yield();
-<<<<<<< HEAD
             kernel->currentThread->setTmpburstTime(kernel->currentThread->getTmpburstTime()+(kernel->stats->totalTicks - kernel->currentThread->getStartExeTime()));
-=======
-            kernel->currentThread->setTmpburstTime(kernel->currentThread->getTmpburstTime() +(kernel->stats->totalTicks - kernel->currentThread->getStartExeTime()));
->>>>>>> 240111b95684130bd7bf6e07436dd3ef410cca29
         }
     }
     else if(thread->getPriority() >= 50)
