@@ -114,11 +114,11 @@ class Thread {
     int getPriority(){
         return priority;
     }
-    void setArrivalTime(int ready){
-        readyTime = ready;
+    void setArrivalTime(int arrival){
+        ArrivalTime = arrival;
     } //for caculate age 
     int getArrivalTime(){
-        return readyTime;
+        return ArrivalTime;
     }
     void setStartTime(int start){
         startTime = start;
@@ -132,7 +132,14 @@ class Thread {
     double getBurstTime(){
         return burstTime;
     }
-    
+    void Aging()
+    {
+        priority += 10;
+        if(priority>=150)
+            setPriority(149);
+        else
+            setPriority(priority);
+    }
     //)leo added
   private:
     // some of the private data for this class is listed above
@@ -152,7 +159,12 @@ class Thread {
 // while executing kernel code.
 
     int userRegisters[NumTotalRegs];	// user-level CPU register state
-
+    //leo added(
+    int priority;
+    int ArrivalTime;
+    int startTime;
+    double burstTime;
+    //)leo added
   public:
     void SaveUserState();		// save user-level register state
     void RestoreUserState();		// restore user-level register state

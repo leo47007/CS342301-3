@@ -98,17 +98,17 @@ Scheduler::ReadyToRun (Thread *thread)
     if(thread->getPriority() >= 100)
     {
         L1_SJF->Insert(thread);
-        cout << "Tick [" << kernel->stats->totalTicks << "] : Thread [" << thread->getID() << "] is inserted into queue L1" << endl;
+        cout << "Tick [" << kernel->stats->totalTicks << "] : Thread [" << thread->getID() << "] is inserted into queue L[1]" << endl;
     }
     else if(thread->getPriority() >= 50)
     {
         L2_Priority->Insert(thread);
-        cout << "Tick [" << kernel->stats->totalTicks << "] : Thread [" << thread->getID() << "] is inserted into queue L2" << endl;
+        cout << "Tick [" << kernel->stats->totalTicks << "] : Thread [" << thread->getID() << "] is inserted into queue L[2]" << endl;
     }
     else
     {
         L3_RR->Append(thread);
-        cout << "Tick [" << kernel->stats->totalTicks << "] : Thread [" << thread->getID() << "] is inserted into queue L3" << endl;
+        cout << "Tick [" << kernel->stats->totalTicks << "] : Thread [" << thread->getID() << "] is inserted into queue L[3]" << endl;
     }
 }
 
@@ -251,4 +251,29 @@ Scheduler::Print()
 void
 Scheduler::Aging(List<Thread*>* list)
 {
+    ListIterator<Thread* > *iterator = new ListIterator<Thread* > (list);
+    for( ; !iterator->IsDone() ; iterator->Next())
+    {
+        Thread* threadForAging = iterator->Item();
+        if(kernel->stats->totalTicks - threadForAging->getArrivalTime() >= 1500)
+        {
+            int oldPriority = threadForAging->getPriority();
+            threadForAging->Aging();
+            int newPriority = threadForAging->getPriority();
+            threadForAging->setArrivalTime = kernel->stats->totalTicks;
+            cout<<"Tick ["<<kernel->stats->totalTicks<<"]: Thread ["<<threadForAging->getID()<<"] changes its priority from ["<<oldPriority<<"] to ["<<newPriority<<"]"<<endl;
+            if(newPriority>=100 && newPriority<=109)
+            {
+                list->Remove(threadForAging);
+                cout<<"Tick ["<<kernel->stats->totalTicks<<"]: Thread ["<<threadForAging->getID()<<"] is removed from queue L[2]"<<endl;
+                ReadyToRun(threadForAging);
+            }
+            else if(newPriority>=50 && newPriority<=59)
+            {
+                list->Remove(threadForAging);
+                cout<<"Tick ["<<kernel->stats->totalTicks<<"]: Thread ["<<threadForAging->getID()<<"] is removed from queue L[3]"<<endl;
+                ReadyToRun(threadForAging);
+            }
+        }
+    }
 }
