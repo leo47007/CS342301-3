@@ -126,11 +126,23 @@ class Thread {
     int getStartExeTime(){
         return startTime;
     }
-    void setBurstTime(double burst){
-        burstTime = burst;
+    void setStartExeTime(int start){
+        startTime = start;
     }
-    double getBurstTime(){
-        return burstTime;
+    int getStartExeTime(){
+        return startTime;
+    }
+    void setLastburstTime(double burst){
+        lastburstTime = burst;
+    }
+    double getLastburstTime(){
+        return lastburstTime;
+    }
+    void setTmpburstTime(double burst){
+        tmpburstTime = burst;
+    }
+    double getTmpburstTime(){
+        return tmpburstTime;
     }
     void Aging()
     {
@@ -163,6 +175,8 @@ class Thread {
     int priority;
     int ArrivalTime;
     int startTime;
+    int lastburstTime;
+    int tmpburstTime;
     double burstTime;
     //)leo added
   public:

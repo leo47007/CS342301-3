@@ -59,6 +59,7 @@ ExceptionHandler(ExceptionType which)
     case SyscallException:
       	switch(type) {
       	case SC_PrintInt:
+      		kernel->scheduler->UpdateBurstTime(kernel->currentThread)
       		DEBUG(dbgSys,"Print Integer on console.\n");
 			val = kernel->machine->ReadRegister(4);
       		SysPrintInt(val);

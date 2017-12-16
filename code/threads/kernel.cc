@@ -284,7 +284,9 @@ int Kernel::Exec(char* name, int priority)
 	t[threadNum] = new Thread(name, threadNum);
     t[threadNum]->setPriority(priority);
     t[threadNum]->setBurstTime(0);
-     
+    t[threadNum]->setTmpburstTime(0);
+    t[threadNum]->setLastburstTime(0);
+
 	t[threadNum]->space = new AddrSpace();
 	t[threadNum]->Fork((VoidFunctionPtr) &ForkExecute, (void *)t[threadNum]);
 	threadNum++;
