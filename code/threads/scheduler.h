@@ -33,6 +33,9 @@ class Scheduler {
     void Print();		// Print contents of ready list
     
     // SelfTest for scheduler is implemented in class Thread
+    void UpdateBurstTime(Thread* thread);
+    void Aging(List<Thread*>* list);
+
     
   private:
     List<Thread *> *readyList;  // queue of threads that are ready to run,
