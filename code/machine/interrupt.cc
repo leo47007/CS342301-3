@@ -24,6 +24,7 @@
 #include "interrupt.h"
 #include "main.h"
 
+#include "Scheduler.h" //leo
 // String definitions for debugging messages
 
 static char *intLevelNames[] = { "off", "on"};
@@ -166,8 +167,12 @@ Interrupt::OneTick()
 				// interrupts disabled)
     CheckIfDue(FALSE);		// check for pending interrupts
     ChangeLevel(IntOff, IntOn);	// re-enable interrupts
-    if (yieldOnReturn) {	// if the timer device handler asked 
-    				// for a context switch, ok to do it now
+    Scheduler->Aging(L1_SJF);
+    Scheduler->Aging(L2_Priority);
+    Scheduler->Aging(L3_RR);
+   // if (yieldOnReturn) {	// if the timer device handler asked  //leo comment
+    				// for a context switch, ok to do it now  
+    if (yieldOnReturn && kernel->currentThread->getPriority()<50) { //leo add 
 	yieldOnReturn = FALSE;
  	status = SystemMode;		// yield is a kernel routine
 	kernel->currentThread->Yield();
