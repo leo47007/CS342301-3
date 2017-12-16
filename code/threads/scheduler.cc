@@ -99,6 +99,10 @@ Scheduler::ReadyToRun (Thread *thread)
     {
         L1_SJF->Insert(thread);
         cout << "Tick [" << kernel->stats->totalTicks << "] : Thread [" << thread->getID() << "] is inserted into queue L[1]" << endl;
+        if(thread->getBurstTime() < kernel->currentThread->getBurstTime())
+        {
+            kernel->currentThread->Yield();
+        }
     }
     else if(thread->getPriority() >= 50)
     {
@@ -276,4 +280,11 @@ Scheduler::Aging(List<Thread*>* list)
             }
         }
     }
+}
+
+void
+Scheduler::UpdateBurstTime(Thread* thread)
+{
+    //still no idea
+    //burstTime =(kernel->stats->totalTicks - startTime)- readyTime;
 }
