@@ -24,7 +24,7 @@
 #include "interrupt.h"
 #include "main.h"
 
-#include "Scheduler.h" //leo
+#include "scheduler.h" //leo
 // String definitions for debugging messages
 
 static char *intLevelNames[] = { "off", "on"};
