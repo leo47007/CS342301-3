@@ -193,12 +193,16 @@ Scheduler::Run (Thread *nextThread, bool finishing)
     
     oldThread->CheckOverflow();		    // check if the old thread
 					    // had an undetected stack overflow
-
+    nextThread->setStartExeTime(kernel->stats->totalTicks);  //leo 
+    
     kernel->currentThread = nextThread;  // switch to the next thread
     nextThread->setStatus(RUNNING);      // nextThread is now running
     
     DEBUG(dbgThread, "Switching from: " << oldThread->getName() << " to: " << nextThread->getName());
-    
+//leo(
+    cout<< "Tick ["<<kernel->stats->totalTicks<<"]: Thread ["<<nextThread->getID()<<"] is now selected for execution"<<endl;  
+    cout<< "Tick ["<<kernel->stats->totalTicks<<"]: Thread ["<<oldThread->getID()<<"] is replaced, and it has executed ["<<kernel->stats->totalTicks - oldThread->getStartExeTime()<<"] ticks"<<endl;   
+//)leo
     // This is a machine-dependent assembly language routine defined 
     // in switch.s.  You may have to think
     // a bit to figure out what happens after this, both from the point

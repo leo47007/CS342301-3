@@ -120,10 +120,10 @@ class Thread {
     int getArrivalTime(){
         return ArrivalTime;
     }
-    void setStartTime(int start){
+    void setStartExeTime(int start){
         startTime = start;
     }
-    int getStartTime(){
+    int getStartExeTime(){
         return startTime;
     }
     void setBurstTime(double burst){
