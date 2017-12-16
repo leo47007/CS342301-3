@@ -167,9 +167,9 @@ Interrupt::OneTick()
 				// interrupts disabled)
     CheckIfDue(FALSE);		// check for pending interrupts
     ChangeLevel(IntOff, IntOn);	// re-enable interrupts
-    kernel->scheduler->Aging(L1_SJF);
-    kernel->scheduler->Aging(L2_Priority);
-    kernel->scheduler->Aging(L3_RR);
+    kernel->scheduler->Aging(kernel->scheduler->L1_SJF);
+    kernel->scheduler->Aging(kernel->scheduler->L2_Priority);
+    kernel->scheduler->Aging(kernel->scheduler->L3_RR);
    // if (yieldOnReturn) {	// if the timer device handler asked  //leo comment
     				// for a context switch, ok to do it now  
     if (yieldOnReturn && kernel->currentThread->getPriority()<50) { //leo add 
