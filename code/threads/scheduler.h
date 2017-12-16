@@ -35,14 +35,13 @@ class Scheduler {
     // SelfTest for scheduler is implemented in class Thread
     void UpdateBurstTime(Thread* thread);
     void Aging(List<Thread*>* list);
-
+    SortedList<Thread *> *L1_SJF;
+    SortedList<Thread *> *L2_Priority;
+    List<Thread *> *L3_RR;
     
   private:
     List<Thread *> *readyList;  // queue of threads that are ready to run,
 				// but not running
-    SortedList<Thread *> *L1_SJF;
-    SortedList<Thread *> *L2_Priority;
-    List<Thread *> *L3_RR;
     Thread *toBeDestroyed;	// finishing thread to be destroyed
     				// by the next thread that runs
 };
