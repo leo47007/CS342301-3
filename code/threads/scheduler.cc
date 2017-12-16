@@ -50,7 +50,7 @@ int Priority_compare(Thread* thread1, Thread* thread2)
             return -1;
         else return 1;        
     }
-    else if(thread1->getPriority() < thread2->Priority()) 
+    else if(thread1->getPriority() < thread2->getPriority()) 
         return -1;
     else 
         return 1;
@@ -61,7 +61,7 @@ Scheduler::Scheduler()
     readyList = new List<Thread *>; 
 
     L1_SJF = new SortedList<Thread *>(SJF_compare);
-    L2_Priority = new SortedList<Thresd *>(Priority_compare);
+    L2_Priority = new SortedList<Thread *>(Priority_compare);
     L3_RR = new List<Thread *>;
 
     toBeDestroyed = NULL;
@@ -102,7 +102,7 @@ Scheduler::ReadyToRun (Thread *thread)
         if(thread->getBurstTime() < kernel->currentThread->getBurstTime())
         {
             kernel->currentThread->Yield();
-            kernel->currentThread->setTmpburstTime(kernel->currentThread->getTmpburstTime+(kernel->stats->totalTicks - kernel->currentThread->getStartExeTime()))
+            kernel->currentThread->setTmpburstTime(kernel->currentThread->getTmpburstTime+(kernel->stats->totalTicks - kernel->currentThread->getStartExeTime()));
         }
     }
     else if(thread->getPriority() >= 50)
@@ -270,7 +270,7 @@ Scheduler::Aging(List<Thread*>* list)
             int oldPriority = threadForAging->getPriority();
             threadForAging->Aging();
             int newPriority = threadForAging->getPriority();
-            threadForAging->setArrivalTime = kernel->stats->totalTicks;
+            threadForAging->setArrivalTime(kernel->stats->totalTicks);
             cout<<"Tick ["<<kernel->stats->totalTicks<<"]: Thread ["<<threadForAging->getID()<<"] changes its priority from ["<<oldPriority<<"] to ["<<newPriority<<"]"<<endl;
             if(newPriority>=100 && newPriority<=109)
             {
