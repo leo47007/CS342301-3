@@ -102,6 +102,7 @@ Scheduler::ReadyToRun (Thread *thread)
         if(thread->getBurstTime() < kernel->currentThread->getBurstTime())
         {
             kernel->currentThread->Yield();
+            kernel->currentThread->setTmpburstTime(kernel->currentThread->getTmpburstTime+(kernel->stats->totalTicks - kernel->currentThread->getStartExeTime()))
         }
     }
     else if(thread->getPriority() >= 50)
@@ -163,7 +164,7 @@ Scheduler::FindNextToRun ()
 //	and load the state of the new thread, by calling the machine
 //	dependent context switch routine, SWITCH.
 //
-//      Note: we assume the state of the previously running thread has
+//      Note: we assume the state of the previouFy running thread has
 //	already been changed from running to blocked or ready (depending).
 // Side effect:
 //	The global variable kernel->currentThread becomes nextThread.
@@ -194,7 +195,8 @@ Scheduler::Run (Thread *nextThread, bool finishing)
     oldThread->CheckOverflow();		    // check if the old thread
 					    // had an undetected stack overflow
     nextThread->setStartExeTime(kernel->stats->totalTicks);  //leo 
-    
+    nextThread->setLastburstTime(kernel->stats->totalTicks - oldThread->getStartExeTime());  //leo 
+
     kernel->currentThread = nextThread;  // switch to the next thread
     nextThread->setStatus(RUNNING);      // nextThread is now running
     
@@ -290,5 +292,6 @@ void
 Scheduler::UpdateBurstTime(Thread* thread)
 {
     //still no idea
+    thread->setBurstTime(0.5*(thread->getBurstTime()+thread->getTmpburstTime()));
     //burstTime =(kernel->stats->totalTicks - startTime)- readyTime;
 }
