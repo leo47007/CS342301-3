@@ -126,12 +126,6 @@ class Thread {
     int getStartExeTime(){
         return startTime;
     }
-    void setStartExeTime(int start){
-        startTime = start;
-    }
-    int getStartExeTime(){
-        return startTime;
-    }
     void setLastburstTime(int burst){
         lastburstTime = burst;
     }
