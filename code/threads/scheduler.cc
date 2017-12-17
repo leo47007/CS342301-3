@@ -99,7 +99,7 @@ Scheduler::ReadyToRun (Thread *thread)
     {
         L1_SJF->Insert(thread);
         cout << "Tick [" << kernel->stats->totalTicks << "]: Thread [" << thread->getID() << "] is inserted into queue L[1]" << endl;
-        if(thread->getBurstTime() < kernel->currentThread->getBurstTime())
+        if(thread->getBurstTime() < kernel->currentThread->getBurstTime() || kernel->currentThread->getPriority()<100)
         {
             cout<<"Burst Time of Thread [" << thread->getID() << "]:"<<thread->getBurstTime()<<endl;
             cout<<"Burst Time of Thread [" << kernel->currentThread->getID() << "]:"<<kernel->currentThread->getBurstTime()<<endl;
