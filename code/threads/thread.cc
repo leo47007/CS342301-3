@@ -243,7 +243,7 @@ Thread::Sleep (bool finishing)
     
     ASSERT(this == kernel->currentThread);
     ASSERT(kernel->interrupt->getLevel() == IntOff);
-    cout << "Tick [" << kernel->stats->totalTicks << "]: Thread [" << thread->getID() << "] is Sleeping" << endl;
+    cout << "Tick [" << kernel->stats->totalTicks << "]" << endl;
 
     DEBUG(dbgThread, "Sleeping thread: " << name);
 
