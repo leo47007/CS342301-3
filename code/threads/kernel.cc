@@ -106,7 +106,8 @@ Kernel::Initialize()
     // object to save its state. 
 
 
-    currentThread = new Thread("main", threadNum++);		
+    currentThread = new Thread("main", threadNum++);	
+    currentThread->setPriority(149);	
     currentThread->setStatus(RUNNING);
 
     stats = new Statistics();		// collect statistics
