@@ -3,10 +3,6 @@
 int
 main()
 {
-	int n;
-	for (n=15;n<=19;n++){
-        
-		PrintInt(n);
-        }
+	for (int i=0;i<1000;i++){}
 }
 
