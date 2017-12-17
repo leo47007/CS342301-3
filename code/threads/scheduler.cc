@@ -260,7 +260,10 @@ void
 Scheduler::Print()
 {
     cout << "Ready list contents:\n";
-    readyList->Apply(ThreadPrint);
+    //readyList->Apply(ThreadPrint);
+    cout << "l1: ";L1_SJF->Apply(ThreadPrint);
+    cout << "\nl2: ";L2_Priority->Apply(ThreadPrint);
+    cout << "\nl3: ";L3_RR->Apply(ThreadPrint);cout <<endl;
 }
 
 void
