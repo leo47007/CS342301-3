@@ -98,10 +98,10 @@ Scheduler::ReadyToRun (Thread *thread)
     if(thread->getPriority() >= 100)
     {
         L1_SJF->Insert(thread);
-        cout << "Tick [" << kernel->stats->totalTicks << "] : Thread [" << thread->getID() << "] is inserted into queue L[1]" << endl;
+        cout << "Tick [" << kernel->stats->totalTicks << "]: Thread [" << thread->getID() << "] is inserted into queue L[1]" << endl;
         if(thread->getBurstTime() < kernel->currentThread->getBurstTime())
         {
-            cout<<"Burst Time of Thread [" << thread->getID() << "] :"<<thread->getBurstTime()<<endl;
+            cout<<"Burst Time of Thread [" << thread->getID() << "]:"<<thread->getBurstTime()<<endl;
             cout<<"Burst Time of Thread [" << kernel->currentThread->getID() << "]:"<<kernel->currentThread->getBurstTime()<<endl;
             cout<<"preempt"<<endl;
             kernel->currentThread->Yield();
@@ -111,12 +111,12 @@ Scheduler::ReadyToRun (Thread *thread)
     else if(thread->getPriority() >= 50)
     {
         L2_Priority->Insert(thread);
-        cout << "Tick [" << kernel->stats->totalTicks << "] : Thread [" << thread->getID() << "] is inserted into queue L[2]" << endl;
+        cout << "Tick [" << kernel->stats->totalTicks << "]: Thread [" << thread->getID() << "] is inserted into queue L[2]" << endl;
     }
     else
     {
         L3_RR->Append(thread);
-        cout << "Tick [" << kernel->stats->totalTicks << "] : Thread [" << thread->getID() << "] is inserted into queue L[3]" << endl;
+        cout << "Tick [" << kernel->stats->totalTicks << "]: Thread [" << thread->getID() << "] is inserted into queue L[3]" << endl;
     }
 }
 
