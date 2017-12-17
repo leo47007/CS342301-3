@@ -186,8 +186,9 @@ Interrupt::OneTick()
 	kernel->currentThread->Yield();
 	status = oldStatus;
     }
-    else if (yieldOnReturn && kernel->currentThread->getPriority()>=100) { //leo add 
+    else if (yieldOnReturn && kernel->currentThread->getPriority()>=100 && kernel->currentThread->getPreempt()) { //leo add 
         //cout<<"in yieldOnReturn"<<endl;
+    kernel->currentThread->setPreempt(FALSE);
     yieldOnReturn = FALSE;
     status = SystemMode;        // yield is a kernel routine
     kernel->currentThread->Yield();

@@ -152,6 +152,14 @@ class Thread {
         else
             setPriority(priority);
     }
+    void setPreempt(bool p)
+    {
+        preempt = p;
+    }
+    bool getPreempt()
+    {
+        return preempt;
+    }
     //)leo added
   private:
     // some of the private data for this class is listed above
@@ -178,6 +186,7 @@ class Thread {
     int lastburstTime;
     int tmpburstTime;
     int burstTime;
+    int preempt;
     //)leo added
   public:
     void SaveUserState();		// save user-level register state
