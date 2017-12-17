@@ -173,6 +173,7 @@ Interrupt::OneTick()
    // if (yieldOnReturn) {	// if the timer device handler asked  //leo comment
     				// for a context switch, ok to do it now  
     if (yieldOnReturn && kernel->currentThread->getPriority()<50) { //leo add 
+        cout<<"in yieldOnReturn"<<endl;
 	yieldOnReturn = FALSE;
  	status = SystemMode;		// yield is a kernel routine
 	kernel->currentThread->Yield();
