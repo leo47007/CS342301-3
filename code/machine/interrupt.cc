@@ -174,8 +174,8 @@ Interrupt::OneTick()
     				// for a context switch, ok to do it now  
     if(kernel->stats->totalTicks%10 == 0)
     {
-      cout<<"kernel->stats->totalTicks = "<<kernel->stats->totalTicks<<endl;
-      cout<<"(onetick)kernel->currentThread->getStartExeTime()="<<kernel->currentThread->getStartExeTime()<<endl;
+      //cout<<"kernel->stats->totalTicks = "<<kernel->stats->totalTicks<<endl;
+      //cout<<"(onetick)kernel->currentThread->getStartExeTime()="<<kernel->currentThread->getStartExeTime()<<endl;
     }
 
     //cout<<(kernel->stats->totalTicks-kernel->currentThread->getStartExeTime())%100<<endl;
