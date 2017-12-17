@@ -209,7 +209,7 @@ Thread::Yield ()
     
     nextThread = kernel->scheduler->FindNextToRun();
     if (nextThread != NULL) {
-    
+
 	kernel->scheduler->ReadyToRun(this);
 	kernel->scheduler->Run(nextThread, FALSE);
     }
@@ -243,7 +243,8 @@ Thread::Sleep (bool finishing)
     
     ASSERT(this == kernel->currentThread);
     ASSERT(kernel->interrupt->getLevel() == IntOff);
-    
+    cout << "Tick [" << kernel->stats->totalTicks << "]: Thread [" << thread->getID() << "] is Sleeping" << endl;
+
     DEBUG(dbgThread, "Sleeping thread: " << name);
 
     status = BLOCKED;
