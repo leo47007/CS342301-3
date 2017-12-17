@@ -206,6 +206,7 @@ Scheduler::Run (Thread *nextThread, bool finishing)
     
     DEBUG(dbgThread, "Switching from: " << oldThread->getName() << " to: " << nextThread->getName());
 //leo(
+    cout<<"kernel->currentThread->getStartExeTime()="<<kernel->currentThread->getStartExeTime()<<endl;
     cout<< "Tick ["<<kernel->stats->totalTicks<<"]: Thread ["<<nextThread->getID()<<"] is now selected for execution"<<endl;  
     cout<< "Tick ["<<kernel->stats->totalTicks<<"]: Thread ["<<oldThread->getID()<<"] is replaced, and it has executed ["<<kernel->stats->totalTicks - oldThread->getStartExeTime()<<"] ticks"<<endl;   
 //)leo
