@@ -23,7 +23,7 @@
 #include "scheduler.h"
 #include "main.h"
 
-#include "../machine/interrupt.h" //leo 
+//#include "../machine/interrupt.h" //leo 
 //----------------------------------------------------------------------
 // Scheduler::Scheduler
 // 	Initialize the list of ready but not running threads.
@@ -107,7 +107,7 @@ Scheduler::ReadyToRun (Thread *thread)
             cout<<"Burst Time of Thread [" << kernel->currentThread->getID() << "]:"<<kernel->currentThread->getBurstTime()<<endl;
             cout<<"preempt"<<endl;
             //kernel->currentThread->Yield();
-            interrupt->YieldOnReturn();
+            kernel->interrupt->YieldOnReturn();
             kernel->currentThread->setTmpburstTime(kernel->currentThread->getTmpburstTime()+(kernel->stats->totalTicks - kernel->currentThread->getStartExeTime()));
         }
     }
