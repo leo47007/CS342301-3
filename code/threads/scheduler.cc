@@ -95,6 +95,8 @@ Scheduler::ReadyToRun (Thread *thread)
 
     thread->setArrivalTime(kernel->stats->totalTicks);
     //readyList->Append(thread);  leo comment
+    kernel->currentThread->setTmpburstTime(kernel->currentThread->getTmpburstTime()+(kernel->stats->totalTicks - kernel->currentThread->getStartExeTime()));
+
     if(thread->getPriority() >= 100)
     {
         L1_SJF->Insert(thread);
@@ -105,7 +107,6 @@ Scheduler::ReadyToRun (Thread *thread)
             cout<<"Burst Time of Thread [" << kernel->currentThread->getID() << "]:"<<kernel->currentThread->getBurstTime()<<endl;
             cout<<"preempt"<<endl;
             kernel->currentThread->Yield();
-            kernel->currentThread->setTmpburstTime(kernel->currentThread->getTmpburstTime()+(kernel->stats->totalTicks - kernel->currentThread->getStartExeTime()));
         }
     }
     else if(thread->getPriority() >= 50)
