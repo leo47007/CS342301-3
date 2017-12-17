@@ -143,17 +143,17 @@ Scheduler::FindNextToRun ()
     if(!(L1_SJF->IsEmpty()))
     {
         threadToRun = L1_SJF->RemoveFront();
-        cout<<"Tick ["<< kernel->stats->totalTicks << "]: Thread [" << threadToRun->getID() <<"] is removed from queue L1"<<endl;
+        cout<<"Tick ["<< kernel->stats->totalTicks << "]: Thread [" << threadToRun->getID() <<"] is removed from queue L[1]"<<endl;
     }
     else if(!(L2_Priority->IsEmpty()))
     {
         threadToRun = L2_Priority->RemoveFront();
-        cout<<"Tick ["<< kernel->stats->totalTicks << "]: Thread [" << threadToRun->getID() <<"] is removed from queue L2"<<endl;        
+        cout<<"Tick ["<< kernel->stats->totalTicks << "]: Thread [" << threadToRun->getID() <<"] is removed from queue L[2]"<<endl;        
     }
     else if(!(L3_RR->IsEmpty()))
     {
         threadToRun = L3_RR->RemoveFront();
-        cout<<"Tick ["<< kernel->stats->totalTicks << "]: Thread [" << threadToRun->getID() <<"] is removed from queue L2"<<endl;       
+        cout<<"Tick ["<< kernel->stats->totalTicks << "]: Thread [" << threadToRun->getID() <<"] is removed from queue L[3]"<<endl;       
     }
     else 
         return NULL;
