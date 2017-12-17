@@ -108,7 +108,7 @@ Scheduler::ReadyToRun (Thread *thread)
             cout<<"preempt"<<endl;
             //kernel->currentThread->Yield();
             kernel->currentThread->setPreempt(TRUE);
-            kernel->interrupt->YieldOnReturn();
+            //kernel->interrupt->YieldOnReturn();
             kernel->currentThread->setTmpburstTime(kernel->currentThread->getTmpburstTime()+(kernel->stats->totalTicks - kernel->currentThread->getStartExeTime()));
         }
     }

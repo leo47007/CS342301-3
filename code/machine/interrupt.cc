@@ -179,6 +179,8 @@ Interrupt::OneTick()
     }
 
     //cout<<(kernel->stats->totalTicks-kernel->currentThread->getStartExeTime())%100<<endl;
+    cout<<"kernel->currentThread->getPreempt()="<<kernel->currentThread->getPreempt()<<endl;
+    if(kernel->currentThread->getPreempt()) yieldOnReturn = TRUE;
     if (yieldOnReturn && kernel->currentThread->getPriority()<50 && ((kernel->stats->totalTicks-kernel->currentThread->getStartExeTime())%100 == 0)) { //leo add 
         //cout<<"in yieldOnReturn"<<endl;
 	yieldOnReturn = FALSE;
@@ -186,7 +188,7 @@ Interrupt::OneTick()
 	kernel->currentThread->Yield();
 	status = oldStatus;
     }
-    else if(yieldOnReturn && kernel->currentThread->getPriority()<100 && kernel->currentThread->getPreempt() && inHandler != TRUE) { //leo add 
+    else if(yieldOnReturn && kernel->currentThread->getPreempt()) { //leo add 
         //cout<<"in yieldOnReturn"<<endl;
     kernel->currentThread->setPreempt(FALSE);
     yieldOnReturn = FALSE;
