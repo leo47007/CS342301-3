@@ -2,7 +2,9 @@
 
 int main(void)
 {
-	char test[] = "abcdefghijklmnopqrstuvwxyz";
+	int i;
+	for (i=0;i<100;i++){}
+	/*char test[] = "abcdefghijklmnopqrstuvwxyz";
 	int success = Create("file1.test");
 	OpenFileId fid;
 	int i;
@@ -16,5 +18,6 @@ int main(void)
 	success = Close(fid);
 	if (success != 1) MSG("Failed on closing file");
 	Halt();
+	*/
 }
 
