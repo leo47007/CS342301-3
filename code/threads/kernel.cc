@@ -281,6 +281,7 @@ void Kernel::ExecAll()
 
 int Kernel::Exec(char* name, int priority)
 {
+    threadNum ++;
 	t[threadNum] = new Thread(name, threadNum);
     t[threadNum]->setPriority(priority);
     t[threadNum]->setBurstTime(0);
