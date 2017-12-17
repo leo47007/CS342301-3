@@ -50,7 +50,7 @@ int Priority_compare(Thread* thread1, Thread* thread2)
             return -1;
         else return 1;        
     }
-    else if(thread1->getPriority() < thread2->getPriority()) 
+    else if(thread1->getPriority() > thread2->getPriority()) 
         return -1;
     else 
         return 1;
