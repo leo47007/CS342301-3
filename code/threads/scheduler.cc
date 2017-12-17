@@ -105,7 +105,8 @@ Scheduler::ReadyToRun (Thread *thread)
             cout<<"Burst Time of Thread [" << thread->getID() << "]:"<<thread->getBurstTime()<<endl;
             cout<<"Burst Time of Thread [" << kernel->currentThread->getID() << "]:"<<kernel->currentThread->getBurstTime()<<endl;
             cout<<"preempt"<<endl;
-            kernel->currentThread->Yield();
+            //kernel->currentThread->Yield();
+            interrupt->YieldOnReturn();
             kernel->currentThread->setTmpburstTime(kernel->currentThread->getTmpburstTime()+(kernel->stats->totalTicks - kernel->currentThread->getStartExeTime()));
         }
     }
