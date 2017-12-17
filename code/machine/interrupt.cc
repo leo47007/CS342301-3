@@ -172,8 +172,12 @@ Interrupt::OneTick()
     kernel->scheduler->Aging(kernel->scheduler->L3_RR);
    // if (yieldOnReturn) {	// if the timer device handler asked  //leo comment
     				// for a context switch, ok to do it now  
-    cout<<"kernel->stats->totalTicks = "<<kernel->stats->totalTicks<<endl;
-    cout<<"(onetick)kernel->currentThread->getStartExeTime()="<<kernel->currentThread->getStartExeTime()<<endl;
+    if(kernel->stats->totalTicks%10 == 0)
+    {
+      cout<<"kernel->stats->totalTicks = "<<kernel->stats->totalTicks<<endl;
+      cout<<"(onetick)kernel->currentThread->getStartExeTime()="<<kernel->currentThread->getStartExeTime()<<endl;
+    }
+
     //cout<<(kernel->stats->totalTicks-kernel->currentThread->getStartExeTime())%100<<endl;
     if (yieldOnReturn && kernel->currentThread->getPriority()<50 && ((kernel->stats->totalTicks-kernel->currentThread->getStartExeTime())%100 == 0)) { //leo add 
         //cout<<"in yieldOnReturn"<<endl;
