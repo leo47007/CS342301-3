@@ -101,6 +101,9 @@ Scheduler::ReadyToRun (Thread *thread)
         cout << "Tick [" << kernel->stats->totalTicks << "] : Thread [" << thread->getID() << "] is inserted into queue L[1]" << endl;
         if(thread->getBurstTime() < kernel->currentThread->getBurstTime())
         {
+            cout<<"Burst Time of Thread [" << thread->getID() << "] :"<<thread->getBurstTime()<<endl;
+            cout<<"Burst Time of Thread [" << kernel->currentThread->getID() << "]:"<<kernel->currentThread->getBurstTime()<<endl;
+            cout<<"preempt"<<endl;
             kernel->currentThread->Yield();
             kernel->currentThread->setTmpburstTime(kernel->currentThread->getTmpburstTime()+(kernel->stats->totalTicks - kernel->currentThread->getStartExeTime()));
         }
