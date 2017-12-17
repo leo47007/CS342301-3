@@ -287,7 +287,7 @@ Scheduler::Aging(List<Thread*>* list)
             int newPriority = threadForAging->getPriority();
             threadForAging->setArrivalTime(kernel->stats->totalTicks);
             cout<<"Tick ["<<kernel->stats->totalTicks<<"]: Thread ["<<threadForAging->getID()<<"] changes its priority from ["<<oldPriority<<"] to ["<<newPriority<<"]"<<endl;
-            if(newPriority>=100 && newPriority<=109)
+            /*if(newPriority>=100 && newPriority<=109)
             {
                 list->Remove(threadForAging);
                 cout<<"Tick ["<<kernel->stats->totalTicks<<"]: Thread ["<<threadForAging->getID()<<"] is removed from queue L[2]"<<endl;
@@ -298,6 +298,35 @@ Scheduler::Aging(List<Thread*>* list)
                 list->Remove(threadForAging);
                 cout<<"Tick ["<<kernel->stats->totalTicks<<"]: Thread ["<<threadForAging->getID()<<"] is removed from queue L[3]"<<endl;
                 ReadyToRun(threadForAging);
+            }*/
+            if(newPriority>=100 && newPriority<=109)
+            {
+
+                list->Remove(threadForAging);
+                cout<<"Tick ["<<kernel->stats->totalTicks<<"]: Thread ["<<threadForAging->getID()<<"] is removed from queue L[2]"<<endl;
+                L1_SJF->Insert(threadForAging);
+                cout << "Tick [" << kernel->stats->totalTicks << "]: Thread [" << threadForAging->getID() << "] is inserted into queue L[1]" << endl;
+                if(threadForAging->getBurstTime() < kernel->currentThread->getBurstTime() || kernel->currentThread->getPriority()<100)
+                {
+                    cout<<"Burst Time of Thread [" << threadForAging->getID() << "]:"<<threadForAging->getBurstTime()<<endl;
+                    cout<<"Burst Time of Thread [" << kernel->currentThread->getID() << "]:"<<kernel->currentThread->getBurstTime()<<endl;
+                    cout<<"preempt"<<endl;
+            
+                    kernel->currentThread->setPreempt(TRUE);
+                
+                    kernel->currentThread->setTmpburstTime(kernel->currentThread->getTmpburstTime()+(kernel->stats->totalTicks - kernel->currentThread->getStartExeTime()));
+                }
+            }
+            else if(newPriority>=50 && newPriority<=59)
+            {
+                list->Remove(threadForAging);
+                cout<<"Tick ["<<kernel->stats->totalTicks<<"]: Thread ["<<threadForAging->getID()<<"] is removed from queue L[3]"<<endl;
+                L2_Priority->Insert(threadForAging);
+                cout << "Tick [" << kernel->stats->totalTicks << "]: Thread [" << threadForAging->getID() << "] is inserted into queue L[2]" << endl;
+                if(kernel->currentThread->getPriority()<50)
+                {
+                    kernel->currentThread->setPreempt(TRUE);
+                }
             }
         }
     }
