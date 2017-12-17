@@ -32,7 +32,7 @@ int SJF_compare(Thread* thread1, Thread* thread2)
 {
     if(thread1->getBurstTime() == thread2->getBurstTime())
     {
-        if(thread1->getID() > thread2->getID())
+        if(thread1->getID() < thread2->getID())
             return -1;
         else return 1;
     }
@@ -46,7 +46,7 @@ int Priority_compare(Thread* thread1, Thread* thread2)
 {
     if(thread1->getPriority() == thread2->getPriority())
     {
-        if(thread1->getID() > thread2->getID())
+        if(thread1->getID() < thread2->getID())
             return -1;
         else return 1;        
     }
@@ -88,7 +88,7 @@ Scheduler::~Scheduler()
 void
 Scheduler::ReadyToRun (Thread *thread)
 {
-    ASSERT(kernel->interrupt->getLevel() == IntOff);
+//    ASSERT(kernel->interrupt->getLevel() == IntOff);
     DEBUG(dbgThread, "Putting thread on ready list: " << thread->getName());
 	//cout << "Putting thread on ready list: " << thread->getName() << endl ;
     thread->setStatus(READY);
