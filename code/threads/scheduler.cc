@@ -337,6 +337,6 @@ Scheduler::UpdateBurstTime(Thread* thread)
 {
     //still no idea
     thread->setBurstTime(0.5*(thread->getBurstTime()+thread->getTmpburstTime()));
-    cout <<"Tick ["<<kernel->stats->totalTicks<<"]: Thread ["<<thread->getID()<<"] UpdateBurstTime to ["<<thread->getBurstTime()<<"]"<<endl; 
+    //cout <<"Tick ["<<kernel->stats->totalTicks<<"]: Thread ["<<thread->getID()<<"] UpdateBurstTime to ["<<thread->getBurstTime()<<"]"<<endl; 
     //burstTime =(kernel->stats->totalTicks - startTime)- readyTime;
 }
