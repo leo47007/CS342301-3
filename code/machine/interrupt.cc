@@ -176,7 +176,7 @@ Interrupt::OneTick()
     //cout<<"(onetick)kernel->currentThread->getStartExeTime()="<<kernel->currentThread->getStartExeTime()<<endl;
     //cout<<(kernel->stats->totalTicks-kernel->currentThread->getStartExeTime())%100<<endl;
     if (yieldOnReturn && kernel->currentThread->getPriority()<50 && ((kernel->stats->totalTicks-kernel->currentThread->getStartExeTime())%100 == 0)) { //leo add 
-        cout<<"in yieldOnReturn"<<endl;
+        //cout<<"in yieldOnReturn"<<endl;
 	yieldOnReturn = FALSE;
  	status = SystemMode;		// yield is a kernel routine
 	kernel->currentThread->Yield();
