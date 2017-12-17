@@ -95,6 +95,7 @@ Scheduler::ReadyToRun (Thread *thread)
 
     thread->setArrivalTime(kernel->stats->totalTicks);
     //readyList->Append(thread);  leo comment
+    if(thread->getID()==1) thread->setPriority(149);
     if(thread->getPriority() >= 100)
     {
         L1_SJF->Insert(thread);
