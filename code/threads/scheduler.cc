@@ -116,6 +116,10 @@ Scheduler::ReadyToRun (Thread *thread)
     {
         L2_Priority->Insert(thread);
         cout << "Tick [" << kernel->stats->totalTicks << "]: Thread [" << thread->getID() << "] is inserted into queue L[2]" << endl;
+        if(kernel->currentThread->getPriority()<50)
+        {
+            kernel->currentThread->setPreempt(TRUE);
+        }
     }
     else
     {
