@@ -98,9 +98,12 @@ Scheduler::ReadyToRun (Thread *thread)
     if(thread->getPriority() >= 100)
     {
         L1_SJF->Insert(thread);
-        cout << "Tick [" << kernel->stats->totalTicks << "] : Thread [" << thread->getID() << "] is inserted into queue L[1]" << endl;
+        cout << "Tick [" << kernel->stats->totalTicks << "]: Thread [" << thread->getID() << "] is inserted into queue L[1]" << endl;
         if(thread->getBurstTime() < kernel->currentThread->getBurstTime())
         {
+            cout<<"Burst Time of Thread [" << thread->getID() << "]:"<<thread->getBurstTime()<<endl;
+            cout<<"Burst Time of Thread [" << kernel->currentThread->getID() << "]:"<<kernel->currentThread->getBurstTime()<<endl;
+            cout<<"preempt"<<endl;
             kernel->currentThread->Yield();
             kernel->currentThread->setTmpburstTime(kernel->currentThread->getTmpburstTime()+(kernel->stats->totalTicks - kernel->currentThread->getStartExeTime()));
         }
@@ -108,12 +111,12 @@ Scheduler::ReadyToRun (Thread *thread)
     else if(thread->getPriority() >= 50)
     {
         L2_Priority->Insert(thread);
-        cout << "Tick [" << kernel->stats->totalTicks << "] : Thread [" << thread->getID() << "] is inserted into queue L[2]" << endl;
+        cout << "Tick [" << kernel->stats->totalTicks << "]: Thread [" << thread->getID() << "] is inserted into queue L[2]" << endl;
     }
     else
     {
         L3_RR->Append(thread);
-        cout << "Tick [" << kernel->stats->totalTicks << "] : Thread [" << thread->getID() << "] is inserted into queue L[3]" << endl;
+        cout << "Tick [" << kernel->stats->totalTicks << "]: Thread [" << thread->getID() << "] is inserted into queue L[3]" << endl;
     }
 }
 
@@ -140,17 +143,17 @@ Scheduler::FindNextToRun ()
     if(!(L1_SJF->IsEmpty()))
     {
         threadToRun = L1_SJF->RemoveFront();
-        cout<<"Tick ["<< kernel->stats->totalTicks << "]: Thread [" << threadToRun->getID() <<"] is removed from queue L1"<<endl;
+        cout<<"Tick ["<< kernel->stats->totalTicks << "]: Thread [" << threadToRun->getID() <<"] is removed from queue L[1]"<<endl;
     }
     else if(!(L2_Priority->IsEmpty()))
     {
         threadToRun = L2_Priority->RemoveFront();
-        cout<<"Tick ["<< kernel->stats->totalTicks << "]: Thread [" << threadToRun->getID() <<"] is removed from queue L2"<<endl;        
+        cout<<"Tick ["<< kernel->stats->totalTicks << "]: Thread [" << threadToRun->getID() <<"] is removed from queue L[2]"<<endl;        
     }
     else if(!(L3_RR->IsEmpty()))
     {
         threadToRun = L3_RR->RemoveFront();
-        cout<<"Tick ["<< kernel->stats->totalTicks << "]: Thread [" << threadToRun->getID() <<"] is removed from queue L2"<<endl;       
+        cout<<"Tick ["<< kernel->stats->totalTicks << "]: Thread [" << threadToRun->getID() <<"] is removed from queue L[3]"<<endl;       
     }
     else 
         return NULL;
